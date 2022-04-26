@@ -1,39 +1,41 @@
-import * as path from 'path'
-import { app, BrowserWindow, dialog, ipcMain } from 'electron'
+import 'reflect-metadata';
+import { app } from 'electron';
+import { createWindow, restoreOrCreateWindow } from './mainWindow';
 
-const loadURL = import.meta.env.PROD
-  ? `file://${path.resolve(__dirname, '../renderer/index.html')}`
-  : process['env'].RENDERER_URL || 'http://localhost:3000'
+process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
-function createWindow() {
-  const mainWindow = new BrowserWindow({ 
-    width: 800,
-    height: 600,
-    icon: path.resolve(__dirname, '../../public/icons/256x256.png'),
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.cjs.js'),
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+        app.quit();
     }
-  })
+});
 
-  mainWindow.loadURL(loadURL)
+app.on('activate', async () => {
+    try {
+        await restoreOrCreateWindow();
+    } catch (error) {
+        app.quit();
+    }
+});
 
-  // mainWindow.webContents.openDevTools()
+app.on('ready', async () => {
+    try {
+        await createWindow();
+    } catch (error) {
+        app.quit();
+    }
+});
 
-  ipcMain.handle('show-dialog', (event, arg) => {
-    dialog.showMessageBoxSync(mainWindow, {
-      message: `received message from renderer process: ${arg}`
-    })
-  })
+if (!app.isPackaged) {
+    if (process.platform === 'win32') {
+        process.on('message', (data) => {
+            if (data === 'graceful-exit') {
+                app.quit();
+            }
+        });
+    } else {
+        process.on('SIGTERM', () => {
+            app.quit();
+        });
+    }
 }
-
-app.whenReady().then(() => {
-  createWindow()
-
-  app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
-})
-
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit()
-})

@@ -1,39 +1,39 @@
-
-
 <p align="center">
-  <img width="150" src="/public/icons/256x256.png" alt="electron-vite">
+    <img width="400" src="https://github.com/ArcherGu/fast-vite-electron/blob/main/logo.png" alt="logo">
 </p>
 
-> This project has been included in [awesome-vite](https://github.com/vitejs/awesome-vite).
+# ⚡Vite + Electron & Esbuild Template
 
-# electron-vite-quick-start
+This template is used to build vite + electron projects.
 
-- ⚡ **Full stack uses Vite** to run Electron application, including main process.
-- 💡 The project is managed using **[yarn workspaces](https://classic.yarnpkg.com/en/docs/workspaces/)**, Therefore, it is recommended to use **Yarn** as a packages management tool.
+**NOTE:** Main process is built with esbuild. After some modifications, it currently supports [`emitDecoratorMetadata`](https://www.typescriptlang.org/tsconfig#emitDecoratorMetadata).
 
-## Quick usage
+## Motivation
 
-```bash
-# Clone this repository
-$ git clone https://github.com/yingpengsha/electron-vite-quick-start.git
-# Go into the repository
-$ cd electron-vite-quick-start
-# Install dependencies
-$ yarn install
-# Run the app
-$ yarn run start
-```
+In the past, I've been building desktop clients with [vue](https://v3.vuejs.org/) + [vue-cli-plugin-electron-builder](https://github.com/nklayman/vue-cli-plugin-electron-builder), and they work very well. But as the project volume grows, webpack-based build patterns become slower and slower.
 
-## Build
+The advent of [vite](https://vitejs.dev/) and [esbuild](https://esbuild.github.io/) greatly improved the development experience and made me feel lightning fast ⚡.
 
-```base
-$ yarn run build
-```
+ It took me a little time to extract this template and thank you for using it.
 
-## Todo
+## How to use
 
-[Dashboard](https://github.com/yingpengsha/electron-vite-quick-start/projects/1)
+- Click the [Use this template](https://github.com/ArcherGu/fast-vite-electron/generate) button (you must be logged in) or just clone this repo.
+- In the project folder: 
+  ```bash
+  # install dependencies
+  yarn # npm install
 
-## License
+  # run in developer mode
+  yarn dev # npm run dev
 
-[MIT](License)
+  # build
+  yarn build # npm run build
+  ```
+
+## Relative
+
+My blog post:
+
+- [极速 DX Vite + Electron + esbuild](https://archergu.me/posts/vite-electron-esbuild)
+- [用装饰器给 Electron 提供一个基础 API 框架](https://archergu.me/posts/electron-decorators)

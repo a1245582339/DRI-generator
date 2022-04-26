@@ -1,0 +1,8 @@
+export enum EVENTS {
+    FETCH_TICKET = 7999,
+    CREATE_TICKET,
+    UPDATE_TICKET, 
+    DELETE_TICKET,   
+    EXPORT_DATA,
+    INIT_DATA
+}
