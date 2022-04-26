@@ -4,7 +4,6 @@ import { join } from "path";
 import { bootstrap, destroy } from "./bootstrap";
 
 const isDev = !app.isPackaged;
-console.log(app.getPath("userData"));
 export async function createWindow() {
   const win = new BrowserWindow({
     width: 1000,
@@ -15,7 +14,6 @@ export async function createWindow() {
       contextIsolation: false,
       devTools: isDev,
     },
-    autoHideMenuBar: !isDev,
   });
 
   win.maximize();
@@ -43,11 +41,28 @@ export async function createWindow() {
       label: "File",
       submenu: [
         {
-          label: "Export",
+            label: "Import JSON",
+            click: () => {
+              dialog
+                .showOpenDialog({
+                  title: "Open the json",
+                  filters: [{ name: "config", extensions: ["json"] }]
+                })
+                .then((result) => {
+                  const jsonFile = readFileSync(
+                    join(result.filePaths[0])
+                  ).toString();
+                  writeFileSync(join(app.getPath("userData"), "/config.json"), jsonFile);
+                  win.reload()
+                });
+            },
+          },
+        {
+          label: "Export JSON",
           click: () => {
             dialog
               .showSaveDialog({
-                title: "Save the .json to...",
+                title: "Save the json to...",
                 filters: [{ name: "config", extensions: ["json"] }],
               })
               .then((result) => {
@@ -59,19 +74,18 @@ export async function createWindow() {
           },
         },
         {
-            label: "Import",
+            label: "Export Table",
             click: () => {
               dialog
-                .showOpenDialog({
-                  title: "Save the .json to...",
-                  filters: [{ name: "config", extensions: ["json"] }]
+                .showSaveDialog({
+                  title: "Save the json to...",
+                  filters: [{ name: "config", extensions: ["json"] }],
                 })
                 .then((result) => {
                   const jsonFile = readFileSync(
-                    join(result.filePaths[0])
+                    join(app.getPath("userData"), "/config.json")
                   ).toString();
-                  writeFileSync(join(app.getPath("userData"), "/config.json"), jsonFile);
-                  win.reload()
+                  writeFileSync(result.filePath, jsonFile);
                 });
             },
           },

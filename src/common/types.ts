@@ -41,6 +41,7 @@ export type BaseTicketFromData = {
     | "CMS";
   owner: string;
   note: string;
+  comment: string
 }
 
 export type TechIssueFormData = {
@@ -65,6 +66,5 @@ export type TicketData<T = BaseTicketFromData> = {
   id: string;
   createTime: number;
   updateTime: number;
-  comment: string;
   ticketFormData: T;
 };

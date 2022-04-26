@@ -47,6 +47,9 @@
             <el-form-item label="Note" prop="note">
                 <el-input v-model="ruleForm.note" type="textarea" />
             </el-form-item>
+            <el-form-item label="Comment" prop="comment">
+                <el-input v-model="ruleForm.comment" type="textarea" />
+            </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm(ruleFormRef)">{{ ticketFormData?.id ? 'Update' : 'Create' }}</el-button>
                 <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
@@ -77,6 +80,7 @@ const ruleForm = reactive<FeatureAskFormData>(ticketFormData || {
     status: 'Active',
     owner: '',
     note: '',
+    comment: ''
 })
 const rules = reactive<FormRules>({
     area: [{required: true, message: 'Please select Area',}],

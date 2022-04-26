@@ -64,6 +64,9 @@
             <el-form-item label="Note" prop="note">
                 <el-input v-model="ruleForm.note" type="textarea" />
             </el-form-item>
+            <el-form-item label="Comment" prop="comment">
+                <el-input v-model="ruleForm.comment" type="textarea" />
+            </el-form-item>
             <el-form-item label="Customer Impact" prop="customerImpact">
                 <el-switch v-model="ruleForm.customerImpact" />
             </el-form-item>
@@ -100,6 +103,7 @@ const ruleForm = reactive<NonTechIssueFormData>(ticketFormData || {
     status: 'Active',
     owner: '',
     note: '',
+    comment: '',
     customerImpact: false
 })
 const rules = reactive<FormRules>({

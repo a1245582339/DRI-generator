@@ -1,7 +1,8 @@
 import 'reflect-metadata';
 import { app } from 'electron';
 import { createWindow, restoreOrCreateWindow } from './mainWindow';
-
+import { generateHTML } from './utils/generateHTML';
+generateHTML()
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
 app.on('window-all-closed', () => {
